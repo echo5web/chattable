@@ -99,7 +99,7 @@ The step itself as well as the userInput object are both passed to this function
 var steps = [
   {
     id: 'first-step',
-    message: 'I¥'m a message from the chattable chat bot.',
+    message: 'I\'m a message from the chattable chat bot.',
     callback: function(step, userInput) {
       alert('Step 1 complete!');
     }
@@ -114,7 +114,7 @@ By default, steps will go in sequential order.  If you add a trigger to a step, 
 var steps = [
   {
     id: 'first-step',
-    message: 'I¥'m a message from the chattable chat bot.',
+    message: 'I\'m a message from the chattable chat bot.',
     trigger: 'third-step'
   },
   {
@@ -163,7 +163,7 @@ var steps = [
         return true
       }
     },
-    invalidMessage: 'Please type "yes" to continue."
+    invalidMessage: 'Please type "yes" to continue.'
   }
 ]
 ```
