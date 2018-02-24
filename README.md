@@ -10,11 +10,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 You must include the chattable.js file and optionally the chattable.css stylesheet in your document.
 
-```
+```html
 <script src="chattable.min.js"></script>
-```
-
-```
 <link type="text/css" rel="stylesheet" href="chattable.min.css"/>
 ```
 
@@ -22,7 +19,7 @@ You must include the chattable.js file and optionally the chattable.css styleshe
 
 You can use Chattable's default configuration and create a chat bot with a form like so.
 
-```
+```javascript
 chattable.init();
 chattable.setStepsFromForm('#my-form');
 ```
@@ -31,7 +28,7 @@ chattable.setStepsFromForm('#my-form');
 
 Below are the default configuration options for Chattable.  You can pass these as arguments to chattable's init function to create the initial state.
 
-```
+```javascript
 var args = {
   persistateState: 'chattable',
   chatBoxOpen: true,
@@ -58,7 +55,7 @@ chattable.init(args);
 
 Chattable's bot runs on a series of steps created through JSON.  A step can be a message from the bot, user input, or a list of selectable options.
 
-```
+```javascript
 var steps = [
   {
     id: 'first-step',
@@ -98,7 +95,7 @@ A callback is run after a step is complete.  For steps that only contain message
 
 The step itself as well as the userInput object are both passed to this function.
 
-```
+```javascript
 var steps = [
   {
     id: 'first-step',
@@ -113,7 +110,7 @@ var steps = [
 
 By default, steps will go in sequential order.  If you add a trigger to a step, it will move to the step with that ID once the current step is complete.
 
-```
+```javascript
 var steps = [
   {
     id: 'first-step',
@@ -133,7 +130,7 @@ var steps = [
 
 Triggers can also be used inside options.
 
-```
+```javascript
 var steps = [
   {
     id: 'first-step',
@@ -156,7 +153,7 @@ var steps = [
 
 The validate option accepts a function that should return a boolean value.  If validation does not pass, the invalidMessage property will be added as a message.
 
-```
+```javascript
 var steps = [
   {
     id: 'first-step',
@@ -177,7 +174,7 @@ The userInput object will pass back either the user's text input object or the o
 
 Chattable has built-in helper functions to create steps directly from forms.  The class selectors for each element can be configured in this function, but each form step must be wrapped in a group.
 
-```
+```html
 <div class="form-group">
   <div class="message">I'm shown as a message</div>
   <input type="text" name="myInput" />
@@ -192,7 +189,7 @@ Chattable has built-in helper functions to create steps directly from forms.  Th
 
 This form will automatically be parsed into sequential steps.  When an option is selected, Chattable will set the form's input to the user input value.
 
-```
+```javascript
 var formSelector = '#my-form',
 formGroupSelector = '.form-group',
 formLabelSelector = '.message',
