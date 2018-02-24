@@ -1,0 +1,59 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>chattable</title><style>body {
+        font-family: Arial, Helvetica, sans-serif;
+      }</style><link href=/static/css/chattable.min.css rel=stylesheet></head><body><div id=app></div><form id=my-form><div class=form-group><div class=message>What's your name?</div><input type=text name=myInput><div class=error-message>I'm shown if validation fails</div></div><div class=form-group><div class=message>Here are some options:</div><label><input type=radio name=myRadio value=option1> Option 1</label> <label><input type=radio name=myRadio value=option2> Option 2</label></div></form><script>window.onload = function() { 
+        var steps = [
+          {
+            id: 'first-step',
+            message: 'I\'m a message from the chattable chat bot.',
+          },
+          {
+            id: 'second-step',
+            message: 'This step allows user text input.',
+            userInput: true,
+            invalidMessage: 'Please type "yes" to continue.',
+            validate: function(userInput) {
+              if (userInput.value.trim() === 'yes') {
+                return true
+              }
+            }
+          },
+          {
+            id: 'third-step',
+            message: 'This following step has selectable options.',
+          },
+          {
+            id: 'fourth-step',
+            options: [
+              {
+                label: 'Option 1',
+                value: 'option1'
+              },
+              {
+                label: 'Option 2',
+                value: 'option2'
+              }
+            ],
+            callback: function() {
+              var formSelector = '#my-form',
+              formGroupSelector = '.form-group',
+              formLabelSelector = '.message',
+              formInputSelector = 'input',
+              formInvalidMessageSelector = '.error-message',
+              formSubmitCallback = function() {
+                // Called at the end of all form steps
+                var form = document.querySelector(formSelector);
+                form.submit();
+              },
+              validateInput = function(input) {
+                // The input node is passed here to perform custom validation
+                return true;
+              };
+              chattable.setStepsFromForm(formSelector, formGroupSelector, formLabelSelector, formInputSelector, formInvalidMessageSelector, formSubmitCallback, validateInput);
+            }
+          }
+        ];
+        chattable.init({
+          steps: steps,
+          persistateState: false
+        });
+      }</script><script type=text/javascript src=/static/js/chattable.min.js></script></body></html>

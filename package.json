@@ -10,6 +10,10 @@
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
   },
+  "pre-commit": [
+    "lint",
+    "build"
+  ],
   "dependencies": {
     "json-fn": "^1.1.1",
     "vue": "^2.5.2",
@@ -49,6 +53,7 @@
     "postcss-import": "^11.0.0",
     "postcss-loader": "^2.0.8",
     "postcss-url": "^7.2.1",
+    "pre-commit": "^1.2.2",
     "rimraf": "^2.6.0",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
