@@ -20,7 +20,6 @@ export default {
       message: null,
       callback: submitCallback
     })
-    console.log(this.steps)
     return this.steps
   },
 
@@ -28,7 +27,7 @@ export default {
     for (var i = 0; i < this.groups.length; i++) {
       var label = this.groups[i].querySelector(this.labelSelector)
       this.groupId = this.groups[i].id ? this.groups[i].id : this.formSelector + i
-      if (this.steps[this.steps.length - 1]) {
+      if (this.steps[this.steps.length - 1] && !this.steps[this.steps.length - 1].trigger) {
         this.steps[this.steps.length - 1].trigger = this.groupId
       }
       this.steps.push({
