@@ -12,20 +12,23 @@ Vue.config.productionTip = false
 const chattable = {
 
   init (args) {
+    var element = document.createElement('div')
+    element.id = 'chattable'
+    document.body.appendChild(element)
     var initialState = Object.assign(defaultState, args)
     Vue.prototype.$config = initialState
 
     /* eslint-disable no-new */
     new Vue({
-      el: '#app',
+      el: '#chattable',
       store: store,
       components: { App },
       template: '<App/>',
       beforeCreate () {
         this.$store.commit('setInitialState', [initialState])
         this.$store.subscribe((mutation, state) => {
-          if (initialState.persistateState) {
-            localStorage.setItem(initialState.persistateState, JSONfn.stringify(state))
+          if (initialState.persistedState) {
+            localStorage.setItem(initialState.persistedState, JSONfn.stringify(state))
           }
         })
       }
@@ -36,8 +39,16 @@ const chattable = {
     store.dispatch('doStepId', id)
   },
 
+  getSteps (steps) {
+    return store.state.steps
+  },
+
   setSteps (steps) {
     store.commit('setSteps', steps)
+  },
+
+  addSteps (steps) {
+    store.commit('addSteps', steps)
   },
 
   setMessages (messages) {
@@ -64,8 +75,8 @@ const chattable = {
     store.commit('addMessage', message)
   },
 
-  setStepsFromForm (formSelector, groupSelector, labelSelector, inputSelector, invalidMessageSelector, submitCallback, validateInput) {
-    var steps = formParser.getStepsFromForm(
+  getStepsFromForm (formSelector, groupSelector, labelSelector, inputSelector, invalidMessageSelector, submitCallback, validateInput) {
+    return formParser.getStepsFromForm(
       formSelector,
       groupSelector,
       labelSelector,
@@ -74,7 +85,6 @@ const chattable = {
       submitCallback,
       validateInput
     )
-    store.commit('addSteps', steps)
   },
 
   getUserData () {

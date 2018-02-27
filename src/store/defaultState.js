@@ -1,5 +1,5 @@
 export default {
-  persistateState: 'chattable',
+  persistedState: 'chattable',
   chatBoxOpen: true,
   messages: [],
   unreadMessages: [],

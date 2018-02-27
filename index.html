@@ -11,7 +11,6 @@
     </style>
   </head>
   <body>
-    <div id="app"></div>
     <!-- built files will be auto injected -->
 
     <form id="my-form">
@@ -77,13 +76,14 @@
                 // The input node is passed here to perform custom validation
                 return true;
               };
-              chattable.setStepsFromForm(formSelector, formGroupSelector, formLabelSelector, formInputSelector, formInvalidMessageSelector, formSubmitCallback, validateInput);
+              var formSteps = chattable.getStepsFromForm(formSelector, formGroupSelector, formLabelSelector, formInputSelector, formInvalidMessageSelector, formSubmitCallback, validateInput);
+              chattable.addSteps(formSteps)
             }
           }
         ];
         chattable.init({
           steps: steps,
-          persistateState: false
+          persistedState: false
         });
       }
     </script>

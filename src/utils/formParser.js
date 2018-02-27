@@ -20,6 +20,7 @@ export default {
       message: null,
       callback: submitCallback
     })
+    console.log(this.steps)
     return this.steps
   },
 
@@ -32,11 +33,16 @@ export default {
       }
       this.steps.push({
         id: this.groupId,
-        message: label ? label.innerHTML : ''
+        message: label ? label.innerHTML : null,
+        trigger: label.dataset.trigger ? label.dataset.trigger : false,
+        delay: label.dataset.delay ? label.dataset.delay : false,
+        duration: label.dataset.duration ? label.dataset.duration : false
       })
       var inputs = this.groups[i].querySelectorAll(this.inputSelector)
       if (inputs.length) {
-        this.steps[this.steps.length - 1].trigger = this.groupId + '-input'
+        if (!this.steps[this.steps.length - 1].trigger) {
+          this.steps[this.steps.length - 1].trigger = this.groupId + '-input'
+        }
         if (inputs[0].type === 'submit') {
           continue
         }

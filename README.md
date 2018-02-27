@@ -21,7 +21,8 @@ You can use Chattable's default configuration and create a chat bot with a form 
 
 ```javascript
 chattable.init();
-chattable.setStepsFromForm('#my-form');
+var formSteps = chattable.getStepsFromForm('#my-form');
+chattable.addSteps(formSteps)
 ```
 
 ### Config
@@ -30,7 +31,7 @@ Below are the default configuration options for Chattable.  You can pass these a
 
 ```javascript
 var args = {
-  persistateState: 'chattable',
+  persistedState: 'chattable',
   chatBoxOpen: true,
   messages: [],
   unreadMessages: [],
@@ -203,7 +204,8 @@ validateInput = function(input) {
   // The input node is passed here to perform custom validation
   return true
 };
-chattable.setStepsFromForm(formSelector, formGroupSelector, formLabelSelector, formInputSelector, formInvalidMessageSelector, formSubmitCallback, validateInput)
+var formSteps = chattable.getStepsFromForm(formSelector, formGroupSelector, formLabelSelector, formInputSelector, formInvalidMessageSelector, formSubmitCallback, validateInput)
+chattable.addSteps(formSteps)
 ```
 
 ## Authors

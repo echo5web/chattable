@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>chattable</title><style>body {
         font-family: Arial, Helvetica, sans-serif;
-      }</style><link href=/static/css/chattable.min.css rel=stylesheet></head><body><div id=app></div><form id=my-form><div class=form-group><div class=message>What's your name?</div><input type=text name=myInput><div class=error-message>I'm shown if validation fails</div></div><div class=form-group><div class=message>Here are some options:</div><label><input type=radio name=myRadio value=option1> Option 1</label> <label><input type=radio name=myRadio value=option2> Option 2</label></div></form><script>window.onload = function() { 
+      }</style><link href=/static/css/chattable.min.css rel=stylesheet></head><body><form id=my-form><div class=form-group><div class=message>What's your name?</div><input type=text name=myInput><div class=error-message>I'm shown if validation fails</div></div><div class=form-group><div class=message>Here are some options:</div><label><input type=radio name=myRadio value=option1> Option 1</label> <label><input type=radio name=myRadio value=option2> Option 2</label></div></form><script>window.onload = function() { 
         var steps = [
           {
             id: 'first-step',
@@ -48,12 +48,13 @@
                 // The input node is passed here to perform custom validation
                 return true;
               };
-              chattable.setStepsFromForm(formSelector, formGroupSelector, formLabelSelector, formInputSelector, formInvalidMessageSelector, formSubmitCallback, validateInput);
+              var formSteps = chattable.getStepsFromForm(formSelector, formGroupSelector, formLabelSelector, formInputSelector, formInvalidMessageSelector, formSubmitCallback, validateInput);
+              chattable.addSteps(formSteps)
             }
           }
         ];
         chattable.init({
           steps: steps,
-          persistateState: false
+          persistedState: false
         });
       }</script><script type=text/javascript src=/static/js/chattable.min.js></script></body></html>

@@ -34,28 +34,30 @@ const store = new Vuex.Store({
     },
 
     addBotMessage ({commit, state}, [message, delay, duration, callback]) {
-      delay = delay || delay === 0 ? delay : state.defaultDelay
-      duration = duration || duration === 0 ? duration : state.defaultDuration
-      setTimeout(function () {
-        state.isTyping = true
+      if (message.content) {
+        delay = delay || delay === 0 ? delay : state.defaultDelay
+        duration = duration || duration === 0 ? duration : state.defaultDuration
         setTimeout(function () {
-          state.isTyping = false
-          // Add message if available and play sound
-          if (message.content) {
-            commit('addMessage', message)
-            var audio = new Audio(state.notificationSound)
-            audio.volume = 0.1
-            audio.play()
-          }
-          // Add unread if closed
-          if (!state.chatBoxOpen) {
-            state.unreadMessages.push(message)
-          }
-          if (callback) {
-            callback()
-          }
-        }, duration)
-      }, delay)
+          state.isTyping = true
+          setTimeout(function () {
+            state.isTyping = false
+            // Add message if available and play sound
+            if (message.content) {
+              commit('addMessage', message)
+              var audio = new Audio(state.notificationSound)
+              audio.volume = 0.1
+              audio.play()
+            }
+            // Add unread if closed
+            if (!state.chatBoxOpen) {
+              state.unreadMessages.push(message)
+            }
+            if (callback) {
+              callback()
+            }
+          }, duration)
+        }, delay)
+      }
     },
 
     doStepId ({commit, state}, id) {
@@ -127,8 +129,8 @@ const store = new Vuex.Store({
   },
   mutations: {
     setInitialState (state, [defaultState]) {
-      if (defaultState.persistateState && localStorage.getItem(defaultState.persistateState)) {
-        let persistedState = JSONfn.parse(localStorage.getItem(defaultState.persistateState))
+      if (defaultState.persistedState && localStorage.getItem(defaultState.persistedState)) {
+        let persistedState = JSONfn.parse(localStorage.getItem(defaultState.persistedState))
         Object.keys(persistedState).forEach(key => { state[key] = persistedState[key] })
         if (state.currentStep && state.messages[state.messages.length - 1].content !== state.currentStep.message) {
           store.dispatch('doStep', state.currentStep)
